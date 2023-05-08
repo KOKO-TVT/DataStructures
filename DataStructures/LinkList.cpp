@@ -12,17 +12,10 @@ void insert(int x)	//½Úµã²åÈë
 {
 	node* temp = new node();
 	temp->data = x;
-	temp->next = nullptr;
-	if(head!=nullptr)
-	{
 		temp->next = head;
 		head = temp;
-	}
-	else
-	{
 		
 	}
-}
 
 void print()
 {
