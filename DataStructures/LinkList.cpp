@@ -89,9 +89,25 @@ void Delete(int n)
 	
 }
 
+void Reverse()		//反装链表	迭代方法实现
+{
+	node* current, *prev, *next;
+	prev = nullptr;
+	current = head;
+	while (current != nullptr)
+	{
+		next = current->next;
+		current->next = prev;
+		prev = current;
+		current = next;
+	}
+	head = prev;
+
+}
+
 void print(node* head)
 {
-	cout << "你所期望得链表为：\n";
+	cout << "链表为：\n";
 	while (head!= nullptr)
 	{
 		cout << head->data<<"\t";
@@ -134,10 +150,17 @@ int main()
 	insert2(6);
 	insert2(8);
 	print(head);
-	int pos;
+	
+	/*
+	 *int pos;
 	cout << "请输入你所想删除的位置节点\n";
 	cin >> pos;
 	Delete(pos);
+	print(head);
+	*/
+
+	cout << "下面是将链表反转后的结果\n";
+	Reverse();
 	print(head);
 
 }
