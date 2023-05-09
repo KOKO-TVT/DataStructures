@@ -42,6 +42,53 @@ void insert1(int data, int pos)		//在任意位置插入节点
 	temp1->next = temp2->next;
 	temp2->next = temp1;
 }
+
+//在链表的末尾添加节点
+void insert2(int data)
+{
+	if(!head)		//链表为空时
+	{
+		node* temp2 = new node();
+		temp2->next = nullptr;
+		temp2->data = data;
+		head = temp2;
+		return;
+	}
+	node* temp = head;
+	while (temp->next != nullptr)
+	{
+		temp = temp->next;
+	}
+	node* temp1 = new node();
+	temp->next = temp1;
+	temp1->data = data;
+	
+}
+
+//删除链表的任意位置节点
+void Delete(int n)
+{
+	node* temp1 = head;
+	//删除位置为1时
+	if (n == 1)
+	{
+		head = temp1->next;
+		delete temp1;
+		return;
+	}
+
+	//其他情况
+	for(int i=0;i<n-2;i++)
+	{
+		temp1 = temp1->next;	//删除特定节点节点的遍历媒介，指定节点的上一节点
+	}
+
+	node* temp2 = temp1->next;		//目标节点
+	temp1->next = temp2->next;
+	delete temp2;
+	
+}
+
 void print(node* head)
 {
 	cout << "你所期望得链表为：\n";
@@ -55,27 +102,42 @@ void print(node* head)
 
 int main()
 {
-	head = nullptr;
-															//对从头部开始插入函数得测试
-															/*	cout << "你想要多少个数据?\n";
-																int n,x;
-																cin >> n;
-																for(int i=0;i<n;i++)
-																{
-																	cout << "请输入你想要填入的信息\n";
-																	cin >> x;
-																	insert(&head,x);
-																	print(head);
+	head = nullptr;	//初始化链表
+	//对从头部开始插入函数得测试
+	/*	cout << "你想要多少个数据?\n";
+	int n,x;
+	cin >> n;
+	for(int i=0;i<n;i++)
+	{
+		cout << "请输入你想要填入的信息\n";
+		cin >> x;
+		insert(&head,x);
+		print(head);
+		
+	}
+	*/
 
-																}
-															*/
 
-	//对任意位置插入得函数进行测试
+	/*//对任意位置插入得函数进行测试
 	insert1(2, 1);
 	insert1(3, 2);
 	insert1(4, 1);
 	insert1(5, 2);
 	insert1(55, 6);
+	print(head);
+	*/
+
+
+	//对尾后位置插入节点和任意位置删除节点进行测试
+	insert2(2);
+	insert2(4);
+	insert2(6);
+	insert2(8);
+	print(head);
+	int pos;
+	cout << "请输入你所想删除的位置节点\n";
+	cin >> pos;
+	Delete(pos);
 	print(head);
 
 }
