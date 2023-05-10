@@ -50,7 +50,7 @@ void insert2(int data)
 	{
 		node* temp2 = new node();
 		temp2->next = nullptr;
-		temp2->data = data;
+		temp2->data = data; 
 		head = temp2;
 		return;
 	}
@@ -89,7 +89,7 @@ void Delete(int n)
 	
 }
 
-void Reverse()		//反装链表	迭代方法实现
+void Reverse()		//反转链表	迭代方法实现
 {
 	node* current, *prev, *next;
 	prev = nullptr;
@@ -105,6 +105,19 @@ void Reverse()		//反装链表	迭代方法实现
 
 }
 
+void Reserve1(node* p)
+{
+	if(p->next==nullptr)
+	{
+		head = p;
+		return;
+	}
+	Reserve1(p->next);
+	node* q = p->next;
+	q->next = p;			//p->next->next = p;
+	p->next = nullptr;
+}
+
 void print(node* head)
 {
 	cout << "链表为：\n";
@@ -114,6 +127,15 @@ void print(node* head)
 		head = head->next;
 	}
 	cout << "\n";
+}
+
+void ReversePrint(node* P)		//使用递归进行反向链表遍历
+{ 
+	if (P == nullptr)
+		return;
+	ReversePrint(P->next);
+	cout << P->data << "\t";
+	
 }
 
 int main()
@@ -149,6 +171,8 @@ int main()
 	insert2(4);
 	insert2(6);
 	insert2(8);
+	cout << "根据你所输入的信息所得的反转链表为：\n";
+	Reserve1(head);
 	print(head);
 	
 	/*
@@ -159,8 +183,10 @@ int main()
 	print(head);
 	*/
 
+	/*
 	cout << "下面是将链表反转后的结果\n";
 	Reverse();
 	print(head);
+	*/
 
 }
