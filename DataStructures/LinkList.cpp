@@ -38,7 +38,6 @@ void insert1(int data, int pos)		//在任意位置插入节点
 	{
 		temp2 = temp2->next;
 	}
-	if(temp2=nullptr)
 	temp1->next = temp2->next;
 	temp2->next = temp1;
 }
