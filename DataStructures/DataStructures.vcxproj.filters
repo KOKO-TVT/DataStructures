@@ -33,9 +33,12 @@
     <ClCompile Include="BTS.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="BPTree.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="LinkList.h">
+    <ClInclude Include="BPTree.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

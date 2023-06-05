@@ -25,4 +25,4 @@ int main()
 	gets_s(c);		//获得字符串方法
 	Reverse(c, strlen(c));
 	cout << c;
-}
+} 
