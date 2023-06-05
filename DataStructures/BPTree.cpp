@@ -60,3 +60,10 @@ void BTrees::Insert(int x)
 		else Split(x, parent, temp);	//满了就进行结点分裂
 	}
 }
+
+void BTrees::Split(int, node* temp1, node* temp2)
+{
+
+
+}
+
