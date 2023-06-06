@@ -1,4 +1,5 @@
 #include<iostream>
+#include <queue>
 #include"BPTree.h"
 
 using namespace std;
@@ -30,7 +31,7 @@ void BTrees::Insert(int x)
 	else
 	{
 		node* temp = root;
-		node* parent;
+		node* parent = new node();
 
 		while(temp->IsLeaf == false)			//找到插入位置
 		{
@@ -95,7 +96,8 @@ void BTrees::Split(int x, node* parent, node* temp)
 		NewRoot->ptr[1] = RLeaf;
 		NewRoot->IsLeaf = false;
 		NewRoot->size = 1;
-		LLeaf->parent = RLeaf->parent = root = NewRoot;
+		root = NewRoot;
+		LLeaf->parent = RLeaf->parent = NewRoot;
 	}
 
 	else
@@ -143,8 +145,118 @@ void BTrees::InsertInternal(int x, node* temp, node* LLeaf, node* RLeaf)		//向上
 		}
 		for(int i = 0,j = NewLchild->size+1;i<NewRchild->size;i++,j++)
 		{
-			
+			NewRchild->key[i] = temp->key[j];
+		}
+		for(int i = 0;i< LLeaf->size+1;i++)
+		{
+			NewLchild->ptr[i] = virtualPtr[i];
+		}
+		for(int i=0,j =LLeaf->size+1;i<RLeaf->size+1;i++,j++)
+		{
+			NewRchild->ptr[i] = virtualPtr[j];
+		}
+		if(temp == root)				//与上面的意义相同，主要是预防会一直递归到根节点
+		{
+			node* NewRoot = new node;
+			NewRoot->key[0] = temp->key[NewLchild->size];
+			NewRoot->ptr[0] = NewLchild;
+			NewRoot->ptr[1] = NewRchild;
+			NewRoot->IsLeaf = false;
+			NewRoot->size = 1;
+			root = NewRoot;
+			NewLchild->parent = NewRchild->parent = NewRoot;
+		}
+		else			//当提上去的结点还是达到了上限就继续来一遍
+		{
+			InsertInternal(temp->key[NewLchild->size],temp->parent,NewLchild,NewRchild);
 		}
 	}
 }
 
+bool node::Search(int x)
+{
+	int i = 0;
+	while (i < size && x>key[i])		//过滤
+		i++;
+	if(key[i] == x)
+	{
+		cout << "查找完成";
+		return true;
+	}
+	if(IsLeaf == true)
+	{
+		cout << "查找失败";
+		return false;
+	}
+	return ptr[i]->Search(x);
+}
+
+bool BTrees::search(int x)
+{
+	return (root == nullptr) ? false : root->Search(x);
+}
+
+
+//输出插入结果
+void BTrees::Print()		//队列实现
+{
+	queue<node*>q;
+	q.push(root);
+	while(!q.empty())
+	{
+		int size_t = q.size();
+		while(size_t--)
+		{
+			node* t = q.front();
+			for(int i=0;i<t->size+1;i++)
+			{
+				if(!t->IsLeaf)
+				{
+					q.push(t->ptr[i]);
+				}
+			}
+			for(int i=0;i<t->size;i++)
+			{
+				cout << t->key[i] << ",";
+			}
+			cout << "\t\t";
+			q.pop();
+		}
+		cout << endl;
+	}
+}
+
+
+int main()
+{
+	BTrees BPtree;
+	BPtree.Insert(5); BPtree.Insert(8);
+	BPtree.Insert(10); BPtree.Insert(15);
+	BPtree.Insert(16); BPtree.Insert(20);
+	BPtree.Insert(19); BPtree.Insert(5); BPtree.Insert(8);
+	BPtree.Insert(10); BPtree.Insert(15);
+	BPtree.Insert(16); BPtree.Insert(20);
+	BPtree.Insert(19); BPtree.Insert(5); BPtree.Insert(8);
+	BPtree.Insert(10); BPtree.Insert(15);
+	BPtree.Insert(16); BPtree.Insert(20);
+	BPtree.Insert(19); BPtree.Insert(5); BPtree.Insert(8);
+	BPtree.Insert(10); BPtree.Insert(15);
+	BPtree.Insert(16); BPtree.Insert(20);
+	BPtree.Insert(19); BPtree.Insert(5); BPtree.Insert(8);
+	BPtree.Insert(10); BPtree.Insert(15);
+	BPtree.Insert(16); BPtree.Insert(20);
+	BPtree.Insert(19); BPtree.Insert(5); BPtree.Insert(8);
+	BPtree.Insert(10); BPtree.Insert(15);
+	BPtree.Insert(16); BPtree.Insert(20);
+	BPtree.Insert(19); BPtree.Insert(5); BPtree.Insert(8);
+	BPtree.Insert(10); BPtree.Insert(15);
+	BPtree.Insert(16); BPtree.Insert(20);
+	BPtree.Insert(19); BPtree.Insert(5); BPtree.Insert(8);
+	BPtree.Insert(10); BPtree.Insert(15);
+	BPtree.Insert(16); BPtree.Insert(20);
+	BPtree.Insert(19);
+	
+	
+	BPtree.Print();
+	BPtree.search(28);
+}
