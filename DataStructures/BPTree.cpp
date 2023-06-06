@@ -31,7 +31,7 @@ void BTrees::Insert(int x)
 	else
 	{
 		node* temp = root;
-		node* parent = new node();
+		node* parent;
 
 		while(temp->IsLeaf == false)			//找到插入位置
 		{
@@ -128,7 +128,7 @@ void BTrees::InsertInternal(int x, node* temp, node* LLeaf, node* RLeaf)		//向上
 			virtualPtr[i] = temp->ptr[i];
 		}
 		int i = InsertVal(x, temp);
-		for(int j = max+2;j>i+1;j--)
+		for(int j = max+1;j>i+1;j--)
 		{
 			virtualPtr[j] = virtualPtr[j - 1];
 		}
@@ -230,33 +230,10 @@ void BTrees::Print()		//队列实现
 int main()
 {
 	BTrees BPtree;
-	BPtree.Insert(5); BPtree.Insert(8);
-	BPtree.Insert(10); BPtree.Insert(15);
-	BPtree.Insert(16); BPtree.Insert(20);
-	BPtree.Insert(19); BPtree.Insert(5); BPtree.Insert(8);
-	BPtree.Insert(10); BPtree.Insert(15);
-	BPtree.Insert(16); BPtree.Insert(20);
-	BPtree.Insert(19); BPtree.Insert(5); BPtree.Insert(8);
-	BPtree.Insert(10); BPtree.Insert(15);
-	BPtree.Insert(16); BPtree.Insert(20);
-	BPtree.Insert(19); BPtree.Insert(5); BPtree.Insert(8);
-	BPtree.Insert(10); BPtree.Insert(15);
-	BPtree.Insert(16); BPtree.Insert(20);
-	BPtree.Insert(19); BPtree.Insert(5); BPtree.Insert(8);
-	BPtree.Insert(10); BPtree.Insert(15);
-	BPtree.Insert(16); BPtree.Insert(20);
-	BPtree.Insert(19); BPtree.Insert(5); BPtree.Insert(8);
-	BPtree.Insert(10); BPtree.Insert(15);
-	BPtree.Insert(16); BPtree.Insert(20);
-	BPtree.Insert(19); BPtree.Insert(5); BPtree.Insert(8);
-	BPtree.Insert(10); BPtree.Insert(15);
-	BPtree.Insert(16); BPtree.Insert(20);
-	BPtree.Insert(19); BPtree.Insert(5); BPtree.Insert(8);
-	BPtree.Insert(10); BPtree.Insert(15);
-	BPtree.Insert(16); BPtree.Insert(20);
-	BPtree.Insert(19);
-	
-	
+	for(int i =0;i<100;i++)
+	{
+		BPtree.Insert(i);
+	}
 	BPtree.Print();
 	BPtree.search(28);
 }
