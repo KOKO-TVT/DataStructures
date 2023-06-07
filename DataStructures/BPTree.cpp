@@ -31,7 +31,7 @@ void BTrees::Insert(int x)
 	else
 	{
 		node* temp = root;
-		node* parent;
+		node* parent = new node;
 
 		while(temp->IsLeaf == false)			//找到插入位置
 		{
@@ -108,9 +108,9 @@ void BTrees::Split(int x, node* parent, node* temp)
 
 void BTrees::InsertInternal(int x, node* temp, node* LLeaf, node* RLeaf)		//向上提的关键字结点分配
 {
-	if(temp->size<max)
+	if(temp->size <max)
 	{
-		int i = InsertVal(x, temp);
+		auto i = InsertVal(x, temp);
 		for(int j = temp->size;j>i+1;i--)		
 		{
 			temp->ptr[j] = temp->ptr[j - 1];
@@ -128,7 +128,7 @@ void BTrees::InsertInternal(int x, node* temp, node* LLeaf, node* RLeaf)		//向上
 			virtualPtr[i] = temp->ptr[i];
 		}
 		int i = InsertVal(x, temp);
-		for(int j = max+1;j>i+1;j--)
+		for(int j = max+2;j>i+1;j--)
 		{
 			virtualPtr[j] = virtualPtr[j - 1];
 		}
@@ -230,10 +230,9 @@ void BTrees::Print()		//队列实现
 int main()
 {
 	BTrees BPtree;
-	for(int i =0;i<100;i++)
-	{
-		BPtree.Insert(i);
-	}
+	BPtree.Insert(5);BPtree.Insert(8);BPtree.Insert(11);BPtree.Insert(15);
+	BPtree.Insert(18);BPtree.Insert(21);BPtree.Insert(28);
+	
 	BPtree.Print();
 	BPtree.search(28);
 }
